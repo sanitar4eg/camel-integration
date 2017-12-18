@@ -13,12 +13,9 @@ public class Application extends AbstractJavaFxApplicationSupport {
 	@Value("${ui.title:JavaFX приложение}")//
 	private String windowTitle;
 
-	private final ControllersConfiguration.ViewHolder view;
-
+	@Qualifier("mainView")
 	@Autowired
-	public Application(@Qualifier("mainView") ControllersConfiguration.ViewHolder view) {
-		this.view = view;
-	}
+	private ControllersConfiguration.ViewHolder view;
 
 	@Override
 	public void start(Stage stage) throws Exception {
