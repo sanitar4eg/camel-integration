@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>edu.learn</groupId>
+	<artifactId>camel-integration</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>camel-integration</name>
+	<description>1c integration with Camel</description>
+
+	<modules>
+		<module>application</module>
+		<module>integration</module>
+	</modules>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<!--
+	https://ru.stackoverflow.com/questions/598633/1c-%D0%B8-%D0%BE%D1%82%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0-post-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0-%D1%81-json-%D0%BD%D0%B0-%D1%81%D0%B0%D0%B9%D1%82
+
+	https://infostart.ru/public/619416/
+
+	http://www.develplatform.ru/OneC/Stream/OneCBlog/2014/03/25/GET-%D0%B8-POST-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D1%8B-%D0%B8%D0%B7-1%D0%A1%D0%9F%D1%80%D0%B5%D0%B4%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%B8%D1%8F-8
+
+	https://infostart.ru/public/305854/
+
+	http://localhost/1c-server/odata/standard.odata/Catalog_ФизЛица`
+	-->
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-spring-boot-starter</artifactId>
+				<version>2.20.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.16.18</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-camel</artifactId>
+				<version>RELEASE</version>
+			</dependency>
+
+			<!--<dependency>-->
+				<!--<groupId>oce-camel</groupId>-->
+				<!--<artifactId>oce-camel</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/oce-camel-0.5.2.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>oce-core</groupId>-->
+				<!--<artifactId>oce-core</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/oce-core-0.5.2-iridium.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>oce-jaxrs</groupId>-->
+				<!--<artifactId>oce-jaxrs</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/oce-jaxrs-0.5.2.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>oce-jdbc</groupId>-->
+				<!--<artifactId>oce-jdbc</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/oce-jdbc-0.5.2.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>oce-web</groupId>-->
+				<!--<artifactId>oce-web</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/oce-web-0.5.2.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>j-interop</groupId>-->
+				<!--<artifactId>j-interop</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/optional/j-interop.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>j-interopdeps</groupId>-->
+				<!--<artifactId>j-interopdeps</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/optional/j-interopdeps.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>commons-logging</groupId>-->
+				<!--<artifactId>commons-logging</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/optional/commons-logging.jar</systemPath>-->
+			<!--</dependency>-->
+			<!--<dependency>-->
+				<!--<groupId>jcifs</groupId>-->
+				<!--<artifactId>jcifs</artifactId>-->
+				<!--<version>0.5.2</version>-->
+				<!--<scope>system</scope>-->
+				<!--<systemPath>${project.basedir}/local-maven-repo/optional/jcifs-1.2.19.jar</systemPath>-->
+			<!--</dependency>-->
+		</dependencies>
+	</dependencyManagement>
+
+</project>

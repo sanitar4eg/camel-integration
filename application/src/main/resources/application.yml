@@ -1,0 +1,8 @@
+endpoints:
+  jmx:
+    enabled: false
+
+ui:
+  title: Spring Boot - JavaFX
+
+
