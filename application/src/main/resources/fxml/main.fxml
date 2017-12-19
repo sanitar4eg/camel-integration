@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.application.ui.MainController">
 	<children>
 		<TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="405.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -10,22 +13,17 @@
 		</TableView>
 		<HBox alignment="CENTER" layoutX="21.0" layoutY="207.0" prefHeight="50.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
 			<children>
-				<TextField fx:id="txtName" promptText="Имя">
+				<TextField promptText="Имя" text="Денис" fx:id="txtName">
 					<HBox.margin>
 						<Insets right="3.0" />
 					</HBox.margin>
 				</TextField>
-				<TextField fx:id="txtPhone" promptText="Телефон">
+				<TextField promptText="Дата рождения" text="1992-05-19" fx:id="txtBirthDay">
 					<HBox.margin>
 						<Insets right="3.0" />
 					</HBox.margin>
 				</TextField>
-				<TextField fx:id="txtEmail" promptText="E-mail">
-					<HBox.margin>
-						<Insets right="3.0" />
-					</HBox.margin>
-				</TextField>
-				<Button minWidth="-Infinity" mnemonicParsing="false" onAction="#addContact" text="Добавить" />
+				<Button minWidth="-Infinity" mnemonicParsing="false" onAction="#addStudent" text="Добавить"/>
 			</children>
 		</HBox>
 	</children>

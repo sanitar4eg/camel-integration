@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application extends AbstractJavaFxApplicationSupport {
 
-	@Value("${ui.title:JavaFX приложение}")//
+	@Value("${ui.title:Деканат}")//
 	private String windowTitle;
 
 	@Qualifier("mainView")

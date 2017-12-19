@@ -1,8 +1,6 @@
 package com.example.application.model;
 
-import com.example.application.json.LocalDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.LocalDate;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,7 +16,6 @@ import lombok.ToString;
 public class Student {
 
 	@JsonProperty("ДатаРождения")
-	@JsonDeserialize(using = LocalDateDeserializer.class)
 	public LocalDate birthDay;
 	@JsonProperty("Ref_Key")
 	private String refKey;

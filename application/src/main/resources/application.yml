@@ -3,6 +3,12 @@ endpoints:
     enabled: false
 
 ui:
-  title: Spring Boot - JavaFX
+  title: Деканат
+
+
+spring:
+    jackson:
+        serialization:
+            WRITE_DATES_AS_TIMESTAMPS: false
 
 
