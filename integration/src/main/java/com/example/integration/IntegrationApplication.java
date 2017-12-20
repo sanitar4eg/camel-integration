@@ -1,9 +1,12 @@
 package com.example.integration;
 
 import javax.ws.rs.core.MediaType;
+import org.apache.activemq.camel.component.ActiveMQComponent;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -35,11 +38,23 @@ public class IntegrationApplication {
 		return servlet;
 	}
 
+	@Bean
+	public ActiveMQComponent activeMQComponent() throws Exception {
+		ActiveMQComponent activeMQComponent = new ActiveMQComponent();
+		activeMQComponent.setBrokerURL("tcp://localhost:61616?broker.useJmx=true");
+		activeMQComponent.start();
+		return activeMQComponent;
+	}
+
 	@Component
 	class RestApi extends RouteBuilder {
 
 		@Override
-		public void configure() {
+		public void configure() throws Exception {
+
+			CamelContext camelContext = new DefaultCamelContext();
+
+			camelContext.addComponent("activemq", activeMQComponent());
 
 			// http://localhost:8080/camel/api-doc
 			restConfiguration().contextPath(contextPath)
@@ -59,21 +74,14 @@ public class IntegrationApplication {
 				.post("/student")
 				.produces(MediaType.APPLICATION_JSON)
 				.consumes(MediaType.APPLICATION_JSON)
-				.bindingMode(RestBindingMode.auto)
-				.type(Student.class)
-				.enableCORS(true)
 				.to("direct:remoteService");
 
 			from("direct:remoteService")
 				.routeId("direct-route")
 				.tracing()
-				.log(">>> ${body.id}")
-				.log(">>> ${body.name}")
-				.process(exchange -> {
-					Student bodyIn = (Student) exchange.getIn().getBody();
-					exchange.getOut().setBody(bodyIn);
-				})
-				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201));
+				.process(exchange -> exchange.getOut().setBody(exchange.getIn().getBody()))
+				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201))
+				.to("activemq:topic:topic.Person");
 		}
 	}
 }
