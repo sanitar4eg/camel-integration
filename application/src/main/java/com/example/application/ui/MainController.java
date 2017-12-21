@@ -111,4 +111,8 @@ public class MainController {
 		txtBirthDay.setText("");
 	}
 
+	public void addStudent(Student student) {
+		data.add(student);
+	}
+
 }

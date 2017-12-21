@@ -19,6 +19,8 @@ public class Student {
 	public LocalDate birthDay;
 	@JsonProperty("Ref_Key")
 	private String refKey;
+	@JsonProperty("Ref")
+	private String ref;
 	@JsonProperty("DataVersion")
 	private String dataVersion;
 	@JsonProperty("DeletionMark")
