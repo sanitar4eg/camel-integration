@@ -1,0 +1,10 @@
+{
+	"#type": "jcfg:CatalogObject.ФизЛица",
+	"#value": {
+		"Ref": "00000000-0000-0000-0000-000000000001",
+		"DeletionMark": false,
+		"Code": "000000025",
+		"Description": "1asasdasfasfaf23",
+		"ДатаРождения": "2017-12-28T00:00:00"
+	}
+}

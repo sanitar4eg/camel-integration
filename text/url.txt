@@ -1,0 +1,5 @@
+http://localhost:8080/camel/api/student
+
+http://localhost/1c-server/odata/standard.odata/Catalog_ФизЛица(guid'26865d7e-e4ac-11e7-9006-f0d5bff1e117')
+
+http://localhost/1c-server/odata/standard.odata/Catalog_ФизЛица?$format=json
