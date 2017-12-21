@@ -1,12 +1,16 @@
 package com.example.integration;
 
+import java.util.HashMap;
 import javax.ws.rs.core.MediaType;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.camel.component.ActiveMQComponent;
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.language.ConstantExpression;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -40,8 +44,15 @@ public class IntegrationApplication {
 
 	@Bean
 	public ActiveMQComponent activeMQComponent() throws Exception {
-		ActiveMQComponent activeMQComponent = new ActiveMQComponent();
-		activeMQComponent.setBrokerURL("tcp://localhost:61616?broker.useJmx=true");
+
+		BrokerService brokerService = new BrokerService();
+		brokerService.addConnector("tcp://127.0.0.1:61616");
+		brokerService.setBrokerName("mine");
+		brokerService.start();
+
+		ActiveMQComponent activeMQComponent = ActiveMQComponent.activeMQComponent();
+		activeMQComponent.setTrustAllPackages(true);
+		activeMQComponent.setConnectionFactory(new ActiveMQConnectionFactory("vm://127.0.0.1?broker.useJmx=true"));
 		activeMQComponent.start();
 		return activeMQComponent;
 	}
@@ -79,9 +90,18 @@ public class IntegrationApplication {
 			from("direct:remoteService")
 				.routeId("direct-route")
 				.tracing()
-				.process(exchange -> exchange.getOut().setBody(exchange.getIn().getBody()))
-				.setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201))
-				.to("activemq:topic:topic.Person");
+				.marshal(new JacksonDataFormat(HashMap.class))
+				.setHeader("#type",
+					new ConstantExpression("com.example.application.jms.StudentJmsEnvelope"))
+				.to("activemq:queue:topic.Person");
+
+//			from("activemq:topic:topic.Person")
+//				.process(exchange ->
+//					{
+//						HashMap body = (HashMap) exchange.getIn().getBody();
+//						body.put("12", "123");
+//						exchange.getOut().setBody(body);
+//					});
 		}
 	}
 }
